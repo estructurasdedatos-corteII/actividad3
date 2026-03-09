@@ -60,7 +60,7 @@ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
             actual = siguienteNodo;//El código recupera el resto de la lista original que guardaste 
             // antes para procesar el siguiente producto.
         }
-        cabeza = listaOrdenada;//Al terminar todo el proceso actualizas la cabeza original de tu clase 
+        cabeza = listaOrdenada; //Al terminar todo el proceso actualizas la cabeza original de tu clase 
         // para que apunte a la nueva lista ya organizada.
 
     }

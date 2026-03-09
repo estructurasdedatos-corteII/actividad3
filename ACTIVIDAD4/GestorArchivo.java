@@ -1,7 +1,7 @@
 import java.io.*;
 
 public class GestorArchivo {
-    private static final String RUTA = "inventario.csv";
+    private static final String RUTA = "Inventario.csv";
 
     public static void guardar(ListaSimple lista) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(RUTA))) {
@@ -21,7 +21,7 @@ public class GestorArchivo {
             while ((linea = br.readLine()) != null) {//leer arta llegar a su fin
                 String[] d = linea.split(",");//Corta la línea cada vez que encuentra una coma y guarda 
                 // los trozos en un arreglo de textos llamado d.
-                insertarFinal(new Producto(Integer.parseInt(d[0]), d[1], Double.parseDouble(d[2])));//Como el archivo es puro texto, 
+                lista.insertarFinal(new Producto(Integer.parseInt(d[0]), d[1], Double.parseDouble(d[2])));//Como el archivo es puro texto, 
                 // usa Integer.parseInt para el ID y Double.parseDouble para
                 //  el precio para convertirlos de nuevo a números. insertarFinal: Crea un nuevo objeto Producto con esos datos
                 //  y lo engancha al final de la lista enlazada actual.
