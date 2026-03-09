@@ -1,6 +1,6 @@
 public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
     
-    private Nodo cabeza;//es el primer nodo de una lista enlazada o la referencia al mismo sirviendo como el punto de entrada 
+    Nodo cabeza;//es el primer nodo de una lista enlazada o la referencia al mismo sirviendo como el punto de entrada 
     // principal para acceder recorrer o manipular la estructura
 
     public void insertarFinal(Producto p) {
@@ -16,12 +16,12 @@ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
         }
     }
 
-    public void eliminarPorId(int id) {
-        if (cabeza == null) return;//Si la lista está vacía (cabeza == null) no hace nada y sale de la función.
+    public boolean eliminarPorId(int id) {
+        if (cabeza == null) return false;//Si la lista está vacía (cabeza == null) no hace nada y sale de la función.
         if (cabeza.dato.id == id) {
             cabeza = cabeza.siguiente;// (La Cabeza) revisa si el producto a eliminar es el primero si el id coincide
             //  simplemente mueve la cabeza al siguiente nodo "saltándose" el primero.
-            return;
+            return false;
         }
         Nodo actual = cabeza;// Si no es el primero empieza a recorrer la lista con un nodo llamado actual
         while (actual.siguiente != null && actual.siguiente.dato.id != id) {
@@ -30,6 +30,7 @@ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
         if (actual.siguiente != null) {//Si encontró el id asi se realiza la desconexión
             actual.siguiente = actual.siguiente.siguiente;
         }//Esto hace que el nodo actual apunte al "nieto"dejando el nodo del id fuera de la estructura 
+        return false;
     }
 
     // ORDENAMIENTO POR PUNTEROS (Insertion Sort)

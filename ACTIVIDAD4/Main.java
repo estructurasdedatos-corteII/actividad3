@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ListaSimple inventario = new ListaSimple();//Crea una instancia
+        ListaSimple inventario = new ListaSimple();
         GestorArchivo.cargar(inventario);
-        Scanner sc = new Scanner(System.in);//Por teclado información
+        Scanner sc = new Scanner(System.in);
         int opcion;
 
         do {
