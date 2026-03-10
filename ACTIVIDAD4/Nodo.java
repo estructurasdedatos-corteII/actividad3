@@ -5,8 +5,8 @@ public class Nodo {//atributos
     // conecta el nodo actual con el próximo elemento en la secuencia.
 
     public Nodo(Producto producto) {
-        this.dato = producto;
-        this.siguiente = null;
+        this.dato = producto;// estamos guardando la informacion del nodo 
+        this.siguiente = null;// Estás diciendo que por ahora este eslabón no está conectado a ningún otro
     }
 
 }

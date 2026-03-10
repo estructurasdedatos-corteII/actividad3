@@ -24,7 +24,7 @@ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
             return false;
         }
         Nodo actual = cabeza;// Si no es el primero empieza a recorrer la lista con un nodo llamado actual
-        while (actual.siguiente != null && actual.siguiente.dato.id != id) {
+        while (actual.siguiente != null && actual.siguiente.dato.id != id) {//que el siguente tenga id
             actual = actual.siguiente;
         }
         if (actual.siguiente != null) {//Si encontró el id asi se realiza la desconexión
@@ -42,7 +42,8 @@ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
         Nodo actual = cabeza;// Empieza a recorrer tu lista original desde el primer nodo
 
         while (actual != null) {
-            Nodo siguienteNodo = actual.siguiente; // Guardar el resto de la lista
+            Nodo siguienteNodo = actual.siguiente; // Guardas la dirección del próximo eslabón an
+            // tes de hacerle cualquier cambio al nodo
             
             // Insertar 'actual' en la nueva lista ordenada
             if (listaOrdenada == null || actual.dato.precio < listaOrdenada.dato.precio) {//está vacía o si el precio del producto actual 
@@ -69,10 +70,9 @@ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
     public void mostrar() {
         if (cabeza == null) System.out.println("Inventario vacío.");//Antes de  leer nada verifica si la lista existe mira si esta vacida
         Nodo temp = cabeza;//Se crea una variable llamada temp que sirve como un "cursor" o "puntero". Empieza apuntando al primer nodo de la lista.
-        while (temp != null) {//Este bucle se repetirá mientras temp esté parado sobre un nodo real. 
-        // Cuando llegue al final de la lista, temp valdrá null y el ciclo se detendrá.
+        while (temp != null) {//garantiza que el siguente nodo o sino llega a su fin 
             System.out.println(temp.dato);//: Imprime los datos del producto actual
-            temp = temp.siguiente;//Esta es la parte más importante. Mueve el cursor al siguiente eslabón de la cadena
+            temp = temp.siguiente;//Esta es la parte más importante. Mueve el cursor al siguiente nodo de la lista
             }
         }
     }

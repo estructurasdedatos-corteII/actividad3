@@ -4,7 +4,7 @@ public class GestorArchivo {
     private static final String RUTA = "Inventario.csv";
 
     public static void guardar(ListaSimple lista) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(RUTA))) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(RUTA))) {//abrir y cerra
             Nodo temp = lista.cabeza;//recore la lista
             while (temp != null) {
                 pw.println(temp.dato.id + "," + temp.dato.nombre + "," + temp.dato.precio);

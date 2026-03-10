@@ -1,9 +1,9 @@
 public class Producto {//atributos 
      int id;
-    String nombre;
-    double precio;
+     String nombre;
+     double precio;
     
-
+//constructor
     public Producto(int id, String nombre, double precio ) {
         this.id = id;
         this.nombre = nombre;
