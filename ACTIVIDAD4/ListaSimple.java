@@ -9,24 +9,34 @@ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
             cabeza = nuevo;
         } else {
             Nodo temp = cabeza;//Se crea un nodo auxiliar llamado "temp" que empieza en la cabeza.
+            System.out.println("else insertarFinal");
 
-            while (temp.siguiente != null) temp = temp.siguiente;
+            while (temp.siguiente != null){
+                temp = temp.siguiente;
+                System.out.println(temp.dato);
+                System.out.println(temp.siguiente);
+            }
+             
             temp.siguiente = nuevo;// El código recorre la lista saltando de nodo en nodo (temp.siguiente) 
             // hasta encontrar el último (aquel el cual el siguiente sea null).
         }
     }
 
     public boolean eliminarPorId(int id) {
-        if (cabeza == null) return false;//Si la lista está vacía (cabeza == null) no hace nada y sale de la función.
+        if (cabeza == null) 
+            return false;//Si la lista está vacía (cabeza == null) no hace nada y sale de la función.
         if (cabeza.dato.id == id) {
             cabeza = cabeza.siguiente;// (La Cabeza) revisa si el producto a eliminar es el primero si el id coincide
             //  simplemente mueve la cabeza al siguiente nodo "saltándose" el primero.
+            System.out.println(cabeza.dato);
             return false;
+
         }
         Nodo actual = cabeza;// Si no es el primero empieza a recorrer la lista con un nodo llamado actual
         while (actual.siguiente != null && actual.siguiente.dato.id != id) {//que el siguente tenga id
             actual = actual.siguiente;
         }
+
         if (actual.siguiente != null) {//Si encontró el id asi se realiza la desconexión
             actual.siguiente = actual.siguiente.siguiente;
         }//Esto hace que el nodo actual apunte al "nieto"dejando el nodo del id fuera de la estructura 
