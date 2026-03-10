@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class mani {
     public static void main(String[] args) {
         ListaSimple inventario = new ListaSimple();
         GestorArchivo.cargar(inventario);
