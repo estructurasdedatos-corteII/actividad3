@@ -1,4 +1,4 @@
-public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
+ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
     
     Nodo cabeza;//es el primer nodo de una lista enlazada o la referencia al mismo sirviendo como el punto de entrada 
     // principal para acceder recorrer o manipular la estructura
@@ -78,7 +78,8 @@ public class ListaSimple {// LÓGICA DE LISTA Y PERSISTENCIA
     }
 
     public void mostrar() {
-        if (cabeza == null) System.out.println("Inventario vacío.");//Antes de  leer nada verifica si la lista existe mira si esta vacida
+        if (cabeza == null) 
+        System.out.println("Inventario vacío.");//Antes de  leer nada verifica si la lista existe mira si esta vacida
         Nodo temp = cabeza;//Se crea una variable llamada temp que sirve como un "cursor" o "puntero". Empieza apuntando al primer nodo de la lista.
         while (temp != null) {//garantiza que el siguente nodo o sino llega a su fin 
             System.out.println(temp.dato);//: Imprime los datos del producto actual

@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 public class mani {
     public static void main(String[] args) {
         ListaSimple inventario = new ListaSimple();

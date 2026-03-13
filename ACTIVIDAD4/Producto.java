@@ -1,4 +1,4 @@
-public class Producto {//atributos 
+ public class Producto {//atributos 
      int id;
      String nombre;
      double precio;
