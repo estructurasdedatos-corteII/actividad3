@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Main {
+public class ConsolaInterativa {
     public static void main(String[] args) {
         HistorialEditor historial = new HistorialEditor();
         Scanner scanner = new Scanner(System.in);
