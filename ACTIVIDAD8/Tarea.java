@@ -1,4 +1,3 @@
-package ACTIVIDAD8;
 import java.time.LocalDate;
 
 public class  Tarea{

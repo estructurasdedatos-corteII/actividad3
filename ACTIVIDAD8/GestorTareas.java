@@ -1,5 +1,3 @@
-package ACTIVIDAD8;
-
 import java.util.LinkedList;
 import java.util.Collections;
 
@@ -22,5 +20,25 @@ public class GestorTareas {
         // Uso de removeIf (Java 8+) como pide la guía
 
         listaTareas.removeIf(Tarea::isCompletada);
+    }
+
+    public void cargarCSV() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'cargarCSV'");
+    }
+
+    public void mostrarTareas() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'mostrarTareas'");
+    }
+
+    public void marcarCompletada(int nextInt) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'marcarCompletada'");
+    }
+
+    public Object guardarCSV() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'guardarCSV'");
     }
 }

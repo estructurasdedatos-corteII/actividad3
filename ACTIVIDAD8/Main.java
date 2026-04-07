@@ -2,6 +2,9 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Main {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         GestorTareas gestor = new GestorTareas();
         gestor.cargarCSV();
@@ -24,7 +27,7 @@ public class Main {
                     Tarea nueva = new Tarea(desc, LocalDate.now().plusDays((int)(Math.random()*10)), p);
                     if (opcion == 1) gestor.agregarAlInicio(nueva); else gestor.agregarAlFinal(nueva);
                 }
-                case 3 -> gestor.ordenar();
+                case 3 -> gestor.ordenarTareas();
                 case 4 -> {
                     System.out.print("Índice de la tarea: ");
                     gestor.marcarCompletada(sc.nextInt());
