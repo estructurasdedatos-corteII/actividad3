@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-// 1. Estructuras de Datos
 class EstadoDocumento {
     String contenido;
     public EstadoDocumento(String contenido) { this.contenido = contenido; }
@@ -16,72 +15,65 @@ class NodoDoble {
     }
 }
 
-// 2. Gestor de Historial
 class Historial {
     private NodoDoble actual;
 
     public Historial() {
-        // Estado inicial vacío para evitar errores de puntero nulo
         this.actual = new NodoDoble(new EstadoDocumento(""));
     }
 
-    // 3. Lógica de Truncamiento
-    public void agregarEstado(String nuevoTexto) {
-        NodoDoble nuevoNodo = new NodoDoble(new EstadoDocumento(nuevoTexto));
+    public void agregarEstado(String nuevaEntrada) {
+        String previo = actual.estado.contenido;
+        String nuevoContenido = previo.isEmpty() ? nuevaEntrada : previo + " " + nuevaEntrada;
         
-        // Truncamiento: Cortamos cualquier rama de futuro obsoleta
-        this.actual.siguiente = nuevoNodo; 
+        NodoDoble nuevoNodo = new NodoDoble(new EstadoDocumento(nuevoContenido));
+        
+        // TRUNCAMIENTO: Se corta el futuro aquí
+        this.actual.siguiente = nuevoNodo;
         nuevoNodo.anterior = this.actual;
-        
-        // El puntero se mueve a la nueva versión
         this.actual = nuevoNodo;
-        System.out.println(">> [Guardado]");
+        System.out.println(">> [SISTEMA]: Guardado correctamente.");
     }
 
     public void deshacer() {
         if (actual.anterior != null) {
             actual = actual.anterior;
-            System.out.println(">> [Undo]");
+            System.out.println(">> [SISTEMA]: Deshacer ejecutado.");
         } else {
-            System.out.println(">> [Inicio del historial]");
+            System.out.println(">> [AVISO]: Inicio del historial.");
         }
     }
 
     public void rehacer() {
         if (actual.siguiente != null) {
             actual = actual.siguiente;
-            System.out.println(">> [Redo]");
+            System.out.println(">> [SISTEMA]: Rehacer ejecutado.");
         } else {
-            System.out.println(">> [Fin del historial]");
+            System.out.println(">> [AVISO]: No hay nada que rehacer.");
         }
     }
 
-    public String obtenerTexto() { return actual.estado.contenido; }
+    public String obtenerTexto() {
+        return actual.estado.contenido.isEmpty() ? "(Vacío)" : actual.estado.contenido;
+    }
 }
 
-// 4. Consola Interactiva Corregida
 public class EditorTexto {
     public static void main(String[] args) {
-        // Forzamos el uso de System.in para evitar bloqueos en IDEs
-        Scanner lector = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         Historial historial = new Historial();
         
-        System.out.println("=== EDITOR DE TEXTO (LISTA DOBLE) ===");
-        System.out.println("Instrucciones:");
-        System.out.println("- Escribe texto para guardar un estado.");
-        System.out.println("- Usa :u para DESHACER.");
-        System.out.println("- Usa :r para REHACER.");
-        System.out.println("- Usa :s para SALIR.");
+        System.out.println("=== EDITOR DE TEXTO ACTIVO ===");
+        System.out.println("COMANDOS: :u (Deshacer), :r (Rehacer), :s (Salir)");
 
         while (true) {
-            System.out.print("\nDocumento actual: [" + historial.obtenerTexto() + "]\nEntrada > ");
+            System.out.println("\nTEXTO ACTUAL: [" + historial.obtenerTexto() + "]");
+            System.out.print("ESCRIBE AQUÍ > ");
             
-            // Verificamos si hay una línea disponible para evitar que el programa se cierre solo
-            if (!lector.hasNextLine()) break;
-            
-            String entrada = lector.nextLine().trim();
+            if (!sc.hasNextLine()) break;
+            String entrada = sc.nextLine().trim();
 
-            // Prioridad a los comandos
+            // Validación ultra-estricta de comandos
             if (entrada.equalsIgnoreCase(":s")) {
                 System.out.println("Cerrando...");
                 break;
@@ -90,10 +82,9 @@ public class EditorTexto {
             } else if (entrada.equalsIgnoreCase(":r")) {
                 historial.rehacer();
             } else if (!entrada.isEmpty()) {
-                // Si hay texto real, se guarda el estado
                 historial.agregarEstado(entrada);
             }
         }
-        lector.close();
+        sc.close();
     }
 }
