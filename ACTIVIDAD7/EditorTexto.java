@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-// 1. Estado y Nodo
+// 1. ESTADO Y NODO: Representan la versión del documento y el enlace doble
 class EstadoDocumento {
     String contenido;
 
@@ -21,83 +21,97 @@ class NodoDoble {
     }
 }
 
-// 2. Clase Historial con Lógica de Truncamiento
+// 2. CLASE HISTORIAL: Gestor de la lista doblemente enlazada
 class Historial {
-    private NodoDoble cabeza;
-    private NodoDoble actual;
+    private NodoDoble cabeza; // Primer estado (vacío)
+    private NodoDoble actual; // Puntero al estado presente
 
     public Historial() {
-        // Estado inicial vacío
+        // Inicializamos con un estado vacío
         EstadoDocumento inicial = new EstadoDocumento("");
         this.cabeza = new NodoDoble(inicial);
         this.actual = cabeza;
     }
 
-    // 3. Lógica de Truncamiento: Rompe referencias futuras si se añade texto nuevo
+    // 3. LÓGICA DE TRUNCAMIENTO: Al escribir nuevo texto, se borra el "futuro"
     public void agregarEstado(String nuevoTexto) {
         EstadoDocumento nuevoEstado = new EstadoDocumento(nuevoTexto);
         NodoDoble nuevoNodo = new NodoDoble(nuevoEstado);
 
-        // Truncamiento: El 'siguiente' del actual ahora es el nuevo nodo
-        // Cualquier rama que existiera después de 'actual' se pierde (Garbage Collector)
+        // ALGORITMO DE TRUNCAMIENTO:
+        // Rompemos la referencia al 'siguiente' actual para descartar ramas obsoletas
         this.actual.siguiente = nuevoNodo;
         nuevoNodo.anterior = this.actual;
         
-        // Movemos el puntero actual al nuevo estado
+        // El puntero se mueve al nuevo nodo (ahora es el último)
         this.actual = nuevoNodo;
-        System.out.println("[Sistema] Nuevo estado guardado.");
+        System.out.println(">> [SISTEMA] Estado guardado.");
     }
 
+    // Navegación hacia atrás (Undo)
     public void deshacer() {
-        if (actual.anterior != null) {
-            actual = actual.anterior;
-            System.out.println("[Sistema] Deshacer realizado.");
+        if (this.actual.anterior != null) {
+            this.actual = this.actual.anterior;
+            System.out.println(">> [SISTEMA] Deshacer ejecutado.");
         } else {
-            System.out.println("[Error] No hay más estados previos.");
+            System.out.println(">> [AVISO] No hay más estados anteriores.");
         }
     }
 
+    // Navegación hacia adelante (Redo)
     public void rehacer() {
-        if (actual.siguiente != null) {
-            actual = actual.siguiente;
-            System.out.println("[Sistema] Rehacer realizado.");
+        if (this.actual.siguiente != null) {
+            this.actual = this.actual.siguiente;
+            System.out.println(">> [SISTEMA] Rehacer ejecutado.");
         } else {
-            System.out.println("[Error] No hay estados futuros (Rehacer no disponible).");
+            System.out.println(">> [AVISO] No hay estados para rehacer (estás en el punto más reciente).");
         }
     }
 
-    public String getContenidoActual() {
-        return actual.estado.contenido;
+    public String obtenerContenidoActual() {
+        return this.actual.estado.contenido;
     }
 }
 
-// 4. Consola Interactiva
+// 4. CONSOLA INTERACTIVA: El intérprete de comandos
 public class EditorTexto {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner lector = new Scanner(System.in);
         Historial historial = new Historial();
-        String comando;
+        String entrada;
 
-        System.out.println("=== EDITOR DE TEXTO CON LISTA DOBLE ===");
-        System.out.println("Comandos: :u (Undo), :r (Redo), :s (Salir)");
-        System.out.println("Cualquier otro texto se guardará como nuevo estado.");
+        System.out.println("==========================================");
+        System.out.println("   EDITOR DE TEXTO (LISTA DOBLE)          ");
+        System.out.println("==========================================");
+        System.out.println(" COMANDOS:");
+        System.out.println("  :u -> Deshacer (Undo)");
+        System.out.println("  :r -> Rehacer (Redo)");
+        System.out.println("  :s -> Salir (Exit)");
+        System.out.println(" Escribe cualquier texto para guardar estado.");
+        System.out.println("==========================================");
 
         while (true) {
-            System.out.println("\nCONTENIDO ACTUAL: [" + historial.getContenidoActual() + "]");
-            System.out.print("> ");
-            comando = scanner.nextLine();
+            System.out.println("\n[DOCUMENTO ACTUAL]: " + historial.obtenerContenidoActual());
+            System.out.print("Entrada > ");
+            entrada = lector.nextLine().trim();
 
-            if (comando.equalsIgnoreCase(":s")) {
-                System.out.println("Cerrando editor...");
+            // Validación de comandos antes de procesar texto
+            if (entrada.equalsIgnoreCase(":s")) {
+                System.out.println("Cerrando el editor. ¡Adiós!");
                 break;
-            } else if (comando.equalsIgnoreCase(":u")) {
+            } 
+            
+            if (entrada.equalsIgnoreCase(":u")) {
                 historial.deshacer();
-            } else if (comando.equalsIgnoreCase(":r")) {
+            } 
+            else if (entrada.equalsIgnoreCase(":r")) {
                 historial.rehacer();
-            } else {
-                historial.agregarEstado(comando);
+            } 
+            else if (!entrada.isEmpty()) {
+                // Si no es comando y no está vacío, guardamos como nuevo nodo
+                historial.agregarEstado(entrada);
             }
         }
-        scanner.close();
+        lector.close();
     }
 }
