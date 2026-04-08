@@ -73,7 +73,7 @@ public class VerificadorSintaxis {
                 continue;
             }
 
-            // CASO 1: Símbolos matemáticos
+            
             if (c == '(' || c == '[' || c == '{') {
                 pila.push(String.valueOf(c), nLinea, nColumna);
             } 
@@ -89,7 +89,7 @@ public class VerificadorSintaxis {
                 }
             }
 
-            // CASO 2: Etiquetas HTML (Ejemplo: <div> ... </div>)
+            
             if (c == '<') {
                 int cierreTag = entrada.indexOf('>', i);
                 if (cierreTag != -1) {
@@ -122,7 +122,7 @@ public class VerificadorSintaxis {
                 System.exit(0);
             }
             p.pop();
-        } else if (!tag.endsWith("/>")) { // Es apertura (ignora etiquetas auto-cerradas)
+        } else if (!tag.endsWith("/>")) { 
             p.push(tag, l, c);
         }
     }
