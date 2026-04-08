@@ -1,8 +1,8 @@
 import java.time.LocalDate;
 
-enum Prioridad { ALTA, MEDIA, BAJA }
-
 public class Tarea {
+    public enum Prioridad { ALTA, MEDIA, BAJA }
+
     private String descripcion;
     private LocalDate fechaVencimiento;
     private Prioridad prioridad;
@@ -24,7 +24,7 @@ public class Tarea {
 
     @Override
     public String toString() {
-        return String.format("[%s] %s - Vence: %s | Prioridad: %s", 
+        return String.format("[%s] %s - Vence: %s (Prioridad: %s)", 
             completada ? "X" : " ", descripcion, fechaVencimiento, prioridad);
     }
 

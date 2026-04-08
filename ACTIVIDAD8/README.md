@@ -1,17 +1,22 @@
 # actividad8
-Análisis Comparativo: LinkedList vs. ArrayList en Gestores de Tareas
+Gestor de Tareas con Java LinkedList API
+ Descripción del Proyecto
+Esta aplicación es un sistema de gestión de tareas (To-Do List) desarrollado en Java que utiliza el Collections Framework de manera avanzada. El sistema permite administrar tareas con prioridades y fechas de vencimiento, garantizando la persistencia de datos mediante archivos CSV y optimizando la manipulación de elementos a través de la clase java.util.LinkedList.
+ Análisis Crítico: LinkedList vs. ArrayList
+Para este proyecto, se seleccionó LinkedList basándose en los siguientes criterios de eficiencia algorítmica y manejo de memoria:
 1. Eficiencia Algorítmica (Notación Big O)
-En este proyecto, la elección de LinkedList sobre ArrayList se fundamenta en la naturaleza de las operaciones principales de un gestor de tareas dinámico:
-Operación	LinkedList (Elegida)	ArrayList	Explicación
-Insertar al inicio (addFirst)	O(1)	O(n)	LinkedList solo cambia punteros; ArrayList debe desplazar todos los elementos existentes.
-Eliminar por condición (removeIf)	O(n)	O(n)	Ambas requieren recorrer la lista, pero LinkedList no requiere reindexar el arreglo tras borrar.
-Acceso por índice (get)	O(n)	O(1)	ArrayList es superior aquí. Sin embargo, en un To-Do List, priorizamos la edición y reubicación sobre la lectura aleatoria.
-Ordenamiento (Collections.sort)	O(n log n)	O(n log n)	Ambas usan variaciones de Timsort, aunque LinkedList convierte internamente a array para ordenar.
-2. Gestión de Memoria
-LinkedList: Cada elemento ("Nodo") consume más memoria porque no solo guarda la Tarea, sino también dos referencias adicionales (punteros al nodo anterior y siguiente).
-ArrayList: Es más compacto, pero sufre de "sobre-asignación". Cuando el arreglo se llena, Java debe crear uno nuevo un 50% más grande y copiar todos los datos, lo que genera picos de uso de memoria y CPU.
-3. Justificación de la Elección
-Se seleccionó java.util.LinkedList para este escenario específico debido a que:
-Flexibilidad de Reubicación: Las aplicaciones de tareas suelen permitir "anclar" tareas al principio. La operación addFirst() es instantánea en una lista doblemente enlazada.
-Eliminación Dinámica: Al limpiar tareas completadas, LinkedList gestiona mejor la eliminación de nodos dispersos sin necesidad de mover bloques de memoria contiguos.
-Cumplimiento de API: Se demuestra el dominio de métodos específicos de la interfaz Deque (Double Ended Queue) que implementa LinkedList.
+Inserciones/Eliminaciones en los extremos: LinkedList implementa la interfaz Deque, permitiendo operaciones addFirst(), addLast(), removeFirst() y removeLast() en tiempo constante O(1). En un ArrayList, insertar al inicio requiere desplazar todos los elementos existentes, lo que toma tiempo lineal O(n).
+Eliminaciones dinámicas: Al usar Iterator o removeIf (como se solicita en la actividad), LinkedList es sumamente eficiente para eliminar elementos mientras se recorre la lista, ya que solo requiere la reasignación de punteros entre nodos adyacentes.
+2. Uso de Memoria
+LinkedList: Consume más memoria por elemento porque cada "Nodo" debe almacenar tres referencias: el objeto (la Tarea), el puntero al nodo anterior y el puntero al nodo siguiente.
+ArrayList: Es más eficiente en uso de memoria contigua, pero sufre de sobrecarga cuando necesita redimensionar el arreglo interno (crear uno nuevo y copiar los datos).
+
+Java 21 API: Uso de java.util.LinkedList, java.util.Collections y java.util.Comparator.
+Programación Funcional: Implementación de predicados en removeIf().
+Persistencia: Manejo de entrada/salida de datos (I/O) para archivos .csv.
+Ordenamiento Compuesto: Comparator jerárquico (Prioridad -> Fecha).
+Estructura del Código
+Tarea.java: Clase de dominio con atributos, Enums y formato CSV.
+TareaComparator.java: Lógica de ordenamiento personalizada.
+GestorTareas.java: Motor de la aplicación que administra la LinkedList.
+Main.java: Interfaz de consola para el usuario.
