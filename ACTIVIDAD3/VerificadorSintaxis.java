@@ -6,12 +6,17 @@ class Nodo {
     int linea;
     int columna;
     Nodo siguiente;
+    public char[] dato;
 
     public Nodo(String contenido, int linea, int columna) {
         this.contenido = contenido;
         this.linea = linea;
         this.columna = columna;
         this.siguiente = null;
+    }
+
+    public Nodo(Producto p) {
+        //TODO Auto-generated constructor stub
     }
 }
 
