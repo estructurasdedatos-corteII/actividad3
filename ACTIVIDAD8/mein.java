@@ -2,6 +2,9 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class mein {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         GestorTareas gestor = new GestorTareas();
         gestor.cargarCSV();
@@ -17,7 +20,7 @@ public class mein {
             sc.nextLine();
 
             switch (opcion) {
-                case 1,2 -> {
+                case 1,2-> {
                     System.out.print("Descripción: "); String desc = sc.nextLine();
                     System.out.print("Prioridad (ALTA, MEDIA, BAJA): "); 
                     Tarea.Prioridad p = Tarea.Prioridad.valueOf(sc.nextLine().toUpperCase());

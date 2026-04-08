@@ -11,7 +11,7 @@ public class ConsolaInterativa {
         System.out.println("Comandos: :u (Undo), :r (Redo), :q (Salir)");
 
         while (true) {
-            System.out.println("\n-----------------------------------------");
+           
             System.out.println("CONTENIDO: " + historial.getContenidoActual());
             System.out.print("Entrada > ");
             entrada = scanner.nextLine();

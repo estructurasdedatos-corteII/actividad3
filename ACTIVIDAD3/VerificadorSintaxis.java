@@ -125,7 +125,9 @@ public class VerificadorSintaxis {
         } else if (!tag.endsWith("/>")) { 
             p.push(tag, l, c);
         }
+    
     }
+
 }
 
     
